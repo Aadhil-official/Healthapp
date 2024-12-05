@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { registerUser } from '../services/api';
 import { updateProfile } from 'firebase/auth';
 import icon from '../../assets/registerimage.png'
+import { ScrollView } from 'react-native-gesture-handler';
 
 function Register({ navigation }) {
   const [username, setUsername] = useState('');
@@ -53,40 +54,46 @@ function Register({ navigation }) {
   // };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Register</Text>
-      <Image source={icon} style={styles.backgroundImage} />
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      {/* <Button title={loading ? 'Registering...' : 'Register'} onPress={handleRegister} /> */}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior="padding"
+    >
+      <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
+        <View style={styles.container}>
+          <Text style={styles.title}>Register</Text>
+          <Image source={icon} style={styles.backgroundImage} />
+          <TextInput
+            style={styles.input}
+            placeholder="Username"
+            value={username}
+            onChangeText={setUsername}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+          {/* <Button title={loading ? 'Registering...' : 'Register'} onPress={handleRegister} /> */}
 
-      <TouchableOpacity onPress={handleRegister}>
-        <View style={styles.button}>
-          {/* <Button onPress={() => navigation.navigate('Register')} > */}
-          <Text style={styles.textCont}>Register</Text>
-          {/* </Button> */}
+          <TouchableOpacity onPress={handleRegister}>
+            <View style={styles.button}>
+              {/* <Button onPress={() => navigation.navigate('Register')} > */}
+              <Text style={styles.textCont}>Register</Text>
+              {/* </Button> */}
+            </View>
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
-
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -101,6 +108,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 20,
     backgroundColor: '#f8f8f8',
+  },
+
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
   },
 
   input: {

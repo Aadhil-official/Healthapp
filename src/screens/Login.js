@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, Image, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 // import { useNavigation } from '@react-navigation/native';
 import imageHealth from '../../assets/healthcare.png'
 import { signInWithCredential, signInWithEmailAndPassword } from 'firebase/auth';
@@ -66,51 +66,56 @@ const Login = ({ navigation }) => {
     navigation.navigate("Register")
   }
   return (
-    <View style={styles.container}>
-      {/* <AvatarImage  */}
-      <Text style={styles.title}>Login</Text>
-      {/* // style={styles.imageContainer} */}
-      {/* > */}
-      <Image source={imageHealth} style={styles.backgroundImage} />
-      {/* </AvatarImage> */}
-      <TextInput
-        style={[styles.input, errors.username && styles.errorInput]}
-        placeholder="Username"
-        value={username}
-        onChangeText={(text) => setUsername(text)}
-      />
-      {errors.username && <Text style={styles.errorText}>{errors.username}</Text>}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Adjusts behavior for iOS and Android
+    >
+      <View style={styles.container}>
+        {/* <AvatarImage  */}
+        <Text style={styles.title}>Login</Text>
+        {/* // style={styles.imageContainer} */}
+        {/* > */}
+        <Image source={imageHealth} style={styles.backgroundImage} />
+        {/* </AvatarImage> */}
+        <TextInput
+          style={[styles.input, errors.username && styles.errorInput]}
+          placeholder="Username"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+        />
+        {errors.username && <Text style={styles.errorText}>{errors.username}</Text>}
 
-      <TextInput
-        style={[styles.input, errors.password && styles.errorInput]}
-        placeholder="Password"
-        value={password}
-        label='Passw'
-        onChangeText={(text) => setPassword(text)}
-        secureTextEntry
-      />
-      {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
+        <TextInput
+          style={[styles.input, errors.password && styles.errorInput]}
+          placeholder="Password"
+          value={password}
+          label='Passw'
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry
+        />
+        {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
-      <View style={{ marginBottom: '60', marginTop: '20' }}>
-        <TouchableOpacity onPress={handleLogin}>
-          <View style={styles.button}>
-            {/* <Button
+        <View style={{ marginBottom: '60', marginTop: '20' }}>
+          <TouchableOpacity onPress={handleLogin}>
+            <View style={styles.button}>
+              {/* <Button
           onPress={handleLogin}
         > */}
-            <Text style={styles.textCont}>Login</Text>
-            {/* </Button> */}
-          </View>
-        </TouchableOpacity>
+              <Text style={styles.textCont}>Login</Text>
+              {/* </Button> */}
+            </View>
+          </TouchableOpacity>
 
-        <TouchableOpacity onPress={sendToregister}>
-          <View style={styles.button}>
-            {/* <Button onPress={() => navigation.navigate('Register')} > */}
-            <Text style={styles.textCont}>Register</Text>
-            {/* </Button> */}
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={sendToregister}>
+            <View style={styles.button}>
+              {/* <Button onPress={() => navigation.navigate('Register')} > */}
+              <Text style={styles.textCont}>Register</Text>
+              {/* </Button> */}
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
