@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, Image, TouchableOpacity } from 'react-native';
 // import { useNavigation } from '@react-navigation/native';
 import imageHealth from '../../assets/healthcare.png'
 import { signInWithCredential, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../services/firebaseConfig';
+import { SendContext } from '../Context/SendContaxt';
 // import { Avatar } from 'react-native-paper';
 // import AvatarImage from 'react-native-paper/lib/typescript/components/Avatar/AvatarImage';
 
 const Login = ({ navigation }) => {
+
+  const { setGlobename } = useContext(SendContext);
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
@@ -18,6 +22,7 @@ const Login = ({ navigation }) => {
     if (!username && !password) {
       // alert
       Alert.alert('Error', 'Please enter username and password');
+      return;
     }
 
     if (!username.trim()) {
@@ -44,12 +49,14 @@ const Login = ({ navigation }) => {
         // const user = userCredential.user;
         // console.log('Login successful:', user);
   
+        setGlobename(username);
         // Navigate to the Home screen with the username
-        navigation.navigate('Home', { username });
+        navigation.navigate('Home');
       } catch (error) {
         // Handle login errors
         // console.error('Login failed:', error);
         Alert.alert('Login Failed try again...!');
+        return;
       }
     }
   };
@@ -98,7 +105,6 @@ const Login = ({ navigation }) => {
             {/* </Button> */}
           </View>
         </TouchableOpacity>
-
 
         <TouchableOpacity onPress={sendToregister}>
           <View style={styles.button}>
@@ -156,7 +162,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333333',
     marginBottom: 20,
-    textAlign: 'center', shadowColor: '#4CAF50',  // Shadow color
+    textAlign: 'center', 
+    shadowColor: '#4CAF50',  // Shadow color
     shadowOffset: { width: 0, height: 2 },  // Offset for the shadow
     shadowOpacity: 0.8,  // Opacity of the shadow
     shadowRadius: 3,  // Radius of the shadow
