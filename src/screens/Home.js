@@ -137,8 +137,8 @@ const Home = ({ navigation }) => {
         <Text style={styles.noDataText}>No images found.</Text>
       )}
 
-      <View>
-        <Text style={styles.fontbottom}>Total Touches: {totcount}</Text>
+      <View style={{ marginLeft: '75%', marginBottom: '20', width: '20%', textAlign: 'right' }}>
+        <Text style={styles.fontbottom}>{totcount}</Text>
       </View>
     </View>
   );
@@ -213,11 +213,16 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     textAlign: 'center',
-    fontSize: 18,
-    color: '#fff',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    fontSize: 24,
+    paddingBottom: '30',
+    paddingTop: '30',
+    // marginRight: 'auto',
+    // marginLeft: 'auto',
+    fontWeight: 'bold',
+    backgroundColor: 'rgba(76, 175, 80,0.8)',
     paddingVertical: 5,
-    borderRadius: 5,
+    borderRadius: 100,
+    justifyContent: 'center'
   },
   image: {
     width: '100%',
