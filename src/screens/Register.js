@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
-import { registerUser } from '../services/api'; // Make sure the api file exists and has the registerUser function.
+import { registerUser } from '../services/api';
 import { updateProfile } from 'firebase/auth';
 import icon from '../../assets/registerimage.png'
 
@@ -20,23 +20,19 @@ function Register({ navigation }) {
     try {
       const userData = { username, email, password };
       if (username && email && password) {
-        // Assuming registerUser is an async function that returns a promise.
         const response = await registerUser(userData);
         if (response) {
           await updateProfile(response, { displayName: username })
 
-          // if (response.success) {
           Alert.alert('Success', 'User registered successfully');
-          // You can navigate to login page after successful registration
           navigation.navigate('Login');
         }
         else {
-          // Alert.alert('Error', response.message || 'An error occurred');
           Alert.alert("User is already registerd...!")
         }
       } else if (!username && !password && !email) {
         Alert.alert('Error', 'Please fill in all fields');
-        return; // Early return to prevent further execution if validation fails
+        return;
       } else if (!username) {
         Alert.alert('Error', 'Please enter a username.');
       } else if (!email) {
@@ -53,7 +49,7 @@ function Register({ navigation }) {
 
 
   // const handleRegister = () => {
-  //   navigation.navigate('Login'); // This should work correctly
+  //   navigation.navigate('Login');
   // };
 
   return (
@@ -117,7 +113,7 @@ const styles = StyleSheet.create({
   },
 
   backgroundImage: {
-    // position: 'absolute',  // Position the image behind other content
+    // position: 'absolute',
     // top: '0',
     // left: 0,
     // right: 0
@@ -131,7 +127,7 @@ const styles = StyleSheet.create({
     width: '300',
     height: '300',
     // padding:20,
-    // opacity: 0.3,  // Optional: adjust the opacity of the background image
+    // opacity: 0.3, 
   },
 
   title: {
@@ -140,11 +136,11 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: -10,
     textAlign: 'center',
-    shadowColor: '#4CAF50',  // Shadow color
-    shadowOffset: { width: 0, height: 2 },  // Offset for the shadow
-    shadowOpacity: 0.8,  // Opacity of the shadow
-    shadowRadius: 3,  // Radius of the shadow
-    elevation: 5,  // For Android shadow
+    shadowColor: '#4CAF50',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 3,
+    elevation: 5,
   },
 
   errorInput: {
@@ -222,8 +218,7 @@ const styles = StyleSheet.create({
 
 //             // if (response.success) {
 //             Alert.alert('Success', 'User registered successfully');
-//             // You can navigate to login page after successful registration
-//             navigation.navigate('Login');
+//             //             navigation.navigate('Login');
 //           }
 //           else {
 //             // Alert.alert('Error', response.message || 'An error occurred');
@@ -245,7 +240,7 @@ const styles = StyleSheet.create({
 
 
 //   // const handleRegister = () => {
-//   //   navigation.navigate('Login'); // This should work correctly
+//   //   navigation.navigate('Login');
 //   // };
 
 //   return (
@@ -324,11 +319,11 @@ const styles = StyleSheet.create({
 //     color: '#333333',
 //     marginBottom: 20,
 //     textAlign: 'center',
-//     shadowColor: '#4CAF50',  // Shadow color
-//     shadowOffset: { width: 0, height: 2 },  // Offset for the shadow
-//     shadowOpacity: 0.8,  // Opacity of the shadow
-//     shadowRadius: 3,  // Radius of the shadow
-//     elevation: 5,  // For Android shadow
+//     shadowColor: '#4CAF50',
+//     shadowOffset: { width: 0, height: 2 },
+//     shadowOpacity: 0.8,
+//     shadowRadius: 3,
+//     elevation: 5,
 //   },
 
 //   errorInput: {

@@ -8,10 +8,9 @@ const Home = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState('health');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [totcount, setTotcount] = useState(0); // To maintain counts for total touches
-  const [imageStatus, setImageStatus] = useState({}); // Store status of each image
+  const [totcount, setTotcount] = useState(0);
+  const [imageStatus, setImageStatus] = useState({});
 
-  // Fetch images from Unsplash API
   const fetchImages = async (query) => {
     setLoading(true);
     setTotcount(0);
@@ -24,10 +23,9 @@ const Home = ({ navigation }) => {
         const result = await response.json();
         setData(result.results);
 
-        // Initialize status for each image as 'Inactive' after fetching images
         const initialStatus = {};
         result.results.forEach((item) => {
-          initialStatus[item.id] = 'Inactive'; // Set initial status to 'Inactive'
+          initialStatus[item.id] = 'Inactive';
         });
         setImageStatus(initialStatus);
       } else {
@@ -42,15 +40,15 @@ const Home = ({ navigation }) => {
   };
 
   useEffect(() => {
-    fetchImages(searchTerm); // Initial fetch
+    fetchImages(searchTerm);
   }, []);
 
   const handleImagePress = (id) => {
     setImageStatus((prevStatus) => ({
       ...prevStatus,
-      [id]: 'Active', // Change status to 'Active' when image is touched
+      [id]: 'Active',
     }));
-    setTotcount((prev) => prev + 1); // Update total count (touches)
+    setTotcount((prev) => prev + 1);
   };
 
   const renderItem = (item) => (
@@ -132,7 +130,7 @@ const Home = ({ navigation }) => {
           {data.map((item) => (
             <View key={item.id}>
               {renderItem(item)}
-              </View>
+            </View>
           ))}
         </ScrollView>
       ) : (

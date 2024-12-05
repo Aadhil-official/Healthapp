@@ -21,7 +21,7 @@ export default function App() {
           <Stack.Screen
             name="Login"
             component={Login}
-            options={{ title: 'Welcome to Login' }} // Customize header
+            options={{ title: 'Welcome to Login' }}
           />
           <Stack.Screen
             name="Register"

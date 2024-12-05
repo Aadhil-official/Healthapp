@@ -20,7 +20,6 @@ const Login = ({ navigation }) => {
   const validateForm = () => {
     const validationErrors = {};
     if (!username && !password) {
-      // alert
       Alert.alert('Error', 'Please enter username and password');
       return;
     }
@@ -40,27 +39,24 @@ const Login = ({ navigation }) => {
       setErrors(validationErrors);
     } else {
       setErrors({});
-  
+
       try {
-        // Use username as email directly (if that's the intended logic)
         const userCredential = await signInWithEmailAndPassword(auth, username, password);
-  
+
         // Login successful
         // const user = userCredential.user;
         // console.log('Login successful:', user);
-  
+
         setGlobename(username);
-        // Navigate to the Home screen with the username
         navigation.navigate('Home');
       } catch (error) {
-        // Handle login errors
         // console.error('Login failed:', error);
         Alert.alert('Login Failed try again...!');
         return;
       }
     }
   };
-  
+
 
   // const handleLogin = async () => {
   //   navigation.navigate("Home");
@@ -124,8 +120,8 @@ const styles = StyleSheet.create({
   // marginTop:'0',
   // marginLeft:'auto',
   // marginRight:'auto',
-  // height: 200, // Set the height of the container
-  // overflow: 'hidden', // Hide the overflow (bottom part of the image)
+  // height: 200,
+  // overflow: 'hidden',
   // position: 'relative',
   // }
   textCont: {
@@ -134,7 +130,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   backgroundImage: {
-    // position: 'absolute',  // Position the image behind other content
+    // position: 'absolute',
     // top: '0',
     // left: 0,
     // right: 0
@@ -148,7 +144,7 @@ const styles = StyleSheet.create({
     width: '200',
     height: '200',
     // padding:20,
-    // opacity: 0.3,  // Optional: adjust the opacity of the background image
+    // opacity: 0.3,
   },
   container: {
     flex: 1,
@@ -162,14 +158,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333333',
     marginBottom: 20,
-    textAlign: 'center', 
-    shadowColor: '#4CAF50',  // Shadow color
-    shadowOffset: { width: 0, height: 2 },  // Offset for the shadow
-    shadowOpacity: 0.8,  // Opacity of the shadow
-    shadowRadius: 3,  // Radius of the shadow
-    elevation: 5,  // For Android shadow
-
+    textAlign: 'center',
+    shadowColor: '#4CAF50',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 3,
+    elevation: 5,
   },
+
   input: {
     borderWidth: 1,
     borderColor: 'rgba(76, 175, 80, 0.5)',
@@ -178,13 +174,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: '#fff',
   },
+
   errorInput: {
     borderColor: 'red',
   },
+
   errorText: {
     color: 'red',
     marginBottom: 10,
   },
+
   button: {
     backgroundColor: 'rgba(76, 175, 80, 0.8)',
     borderRadius: 5,
