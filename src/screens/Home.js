@@ -11,92 +11,32 @@ const Home = ({ navigation }) => {
   const [totcount, setTotcount] = useState(0);
   const [imageStatus, setImageStatus] = useState({});
 
-  // const fetchImages1 = async (query) => {
-  //   setLoading(true);
-  //   setTotcount(0);
-  //   setError(null);
-  //   try {
-  //     if (searchTerm.trim() !== "") {
-  //       const response1 = await fetch(
-  //         `https://api.unsplash.com/search/photos?query=${query}&client_id=pao1i41sEZkTiD0pbmXVPEKuWnHVIn_zw2ixY8nFNZs`
-  //       );
-
-  //       const result1 = await response1.json();
-
-  //       if (result1.results && result1.results.length > 0) {
-  //         const response = await fetch(
-  //           `https://api.unsplash.com/search/photos?query=${query}%20health&client_id=pao1i41sEZkTiD0pbmXVPEKuWnHVIn_zw2ixY8nFNZs`
-  //         );
-  //         const result = await response.json();
-  //         setData(result.results);
-
-  //         const initialStatus = {};
-  //         result.results.forEach((item) => {
-  //           initialStatus[item.id] = 'Inactive';
-  //         });
-  //         setImageStatus(initialStatus);
-  //       } else {
-  //         setData([]);
-  //         // Alert.alert("No images found for your search.");
-  //       }
-  //     } else {
-  //       Alert.alert("Enter the search field...!");
-  //       // setSearchTerm("health");
-  //     }
-  //   } catch (error) {
-  //     setError('Failed to fetch images. Please try again.');
-  //     console.error('Error fetching images:', error);
-  //   }
-  //   setLoading(false);
-  // };
-
   const fetchImages = async (query) => {
     setLoading(true);
     setTotcount(0);
     setError(null);
-
     try {
-      if (query.trim() !== "") {
-
-        const response1 = await fetch(
-          `https://api.unsplash.com/search/photos?query=health&client_id=pao1i41sEZkTiD0pbmXVPEKuWnHVIn_zw2ixY8nFNZs`
+      if (searchTerm.trim() !== "") {
+        const response = await fetch(
+          `https://api.unsplash.com/search/photos?query=${query}%20health&client_id=pao1i41sEZkTiD0pbmXVPEKuWnHVIn_zw2ixY8nFNZs`
         );
+        const result = await response.json();
+        setData(result.results);
 
-        const result1 = await response1.json();
-
-        if (result1.results && result1.results.length > 0) {
-
-          const response = await fetch(
-            `https://api.unsplash.com/search/photos?query=${query}%20health&client_id=pao1i41sEZkTiD0pbmXVPEKuWnHVIn_zw2ixY8nFNZs`
-          );
-
-          const result = await response.json();
-
-          if (result.results.length !== result1.results.length || searchTerm === 'health') {
-            setData(result.results);
-
-            const initialStatus = {};
-            result.results.forEach((item) => {
-              initialStatus[item.id] = 'Inactive';
-            });
-            setImageStatus(initialStatus);
-          } else {
-            setData([]);
-            Alert.alert("No images found for your search.");
-          }
-        } else {
-          setData([]);
-          Alert.alert("No images found for your search.");
-        }
+        const initialStatus = {};
+        result.results.forEach((item) => {
+          initialStatus[item.id] = 'Inactive';
+        });
+        setImageStatus(initialStatus);
       } else {
-        Alert.alert("Please enter a search term!");
+        Alert.alert("Enter the search field...!");
+        setSearchTerm("health");
       }
     } catch (error) {
       setError('Failed to fetch images. Please try again.');
       console.error('Error fetching images:', error);
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
