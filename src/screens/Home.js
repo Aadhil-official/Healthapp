@@ -51,7 +51,7 @@ const Home = ({ navigation }) => {
   // };
 
   const fetchImages = async (query) => {
-    setLoading(true); 
+    setLoading(true);
     setTotcount(0);
     setError(null);
 
@@ -59,13 +59,12 @@ const Home = ({ navigation }) => {
       if (query.trim() !== "") {
 
         const response1 = await fetch(
-          `https://api.unsplash.com/search/photos?query=${query}&client_id=pao1i41sEZkTiD0pbmXVPEKuWnHVIn_zw2ixY8nFNZs`
+          `https://api.unsplash.com/search/photos?query=health&client_id=pao1i41sEZkTiD0pbmXVPEKuWnHVIn_zw2ixY8nFNZs`
         );
 
         const result1 = await response1.json();
 
         if (result1.results && result1.results.length > 0) {
-
 
           const response = await fetch(
             `https://api.unsplash.com/search/photos?query=${query}%20health&client_id=pao1i41sEZkTiD0pbmXVPEKuWnHVIn_zw2ixY8nFNZs`
@@ -73,13 +72,18 @@ const Home = ({ navigation }) => {
 
           const result = await response.json();
 
-          setData(result.results);
+          if (result.results.length !== result1.results.length) {
+            setData(result.results);
 
-          const initialStatus = {};
-          result.results.forEach((item) => {
-            initialStatus[item.id] = 'Inactive';
-          });
-          setImageStatus(initialStatus);
+            const initialStatus = {};
+            result.results.forEach((item) => {
+              initialStatus[item.id] = 'Inactive';
+            });
+            setImageStatus(initialStatus);
+          } else {
+            setData([]);
+            Alert.alert("No images found for your search.");
+          }
         } else {
           setData([]);
           Alert.alert("No images found for your search.");
