@@ -72,7 +72,7 @@ const Home = ({ navigation }) => {
 
           const result = await response.json();
 
-          if (result.results.length !== result1.results.length) {
+          if (result.results.length !== result1.results.length || searchTerm === 'health') {
             setData(result.results);
 
             const initialStatus = {};
